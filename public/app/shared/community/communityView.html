@@ -1,0 +1,59 @@
+<!-- masonary title -->
+<div  class="masonary-title-box text-uppercase">
+	<div class="masonary-title">
+		<h2>My Community Space</h2>
+		<p data-ng-hide="mycommListShow">SEE WHAT IS TRENDING IN YOUR COMMUNITY!</p>
+	</div>
+	<div class="result-numbers pull-right">
+		<!-- <p>Showing 9/274 <span></span></p> -->
+	</div>
+</div>
+<!-- masonary title -->
+<!--Masonary Grid  -->
+<div class="masoranyGridBox">
+	<div id="masoranyGrid" class="clearfix" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+	<!-- gridItem starts -->
+		<img data-ng-show="commloader" src="assets/img/ajax-loader.gif"/>
+		<div  data-ng-hide ="commloader" class="girdItem heightOne" data-ng-repeat="communityList in activityList" data-ng-click="viewActivity(communityList._id)">
+			<h5 class="heading-article">
+				<span>
+				<span data-ng-bind="communityList.user.local.name"> </span>
+				</span>
+			</h5>
+			<div class="video-box">
+				<span data-ng-if="communityList.url !== ''" ng-style="{'background-image':'url({{communityList.url}})'}"></span>
+				<span  data-ng-if="communityList.url == ''" ng-style="{'background-image':'url(assets/img/icons/video-lag.png)'}"></span>
+				<!-- <img data-ng-if="communityList.url !== ''" alt="" src="{{communityList.url}}">
+				<img data-ng-if="communityList.url == ''" alt="" src="assets/img/icons/video-lag.png"> -->
+			</div>
+			<div class="main-artcle">
+				<a href="" data-ng-bind="communityList.description.substr(0,20) + '....'"></a>
+				<!-- <a confirm-click data-ng-click="confirmClick(); $event.stopPropagation();">delete</a> -->
+			</div>
+			<div>
+				<ul class="webActions clear-fix">
+					<li><a href="" class="like-small"><span class="glyphicon glyphicon-comment eye" aria-hidden="true"></span><span>27</span> </a></li>
+					<li><a href="" class="bookmark-small"><span class="glyphicon glyphicon-eye-open eye" aria-hidden="true"></span><span data-ng-bind="communityList.likes.length"></span> </a></li>
+					<li class="you-tube"><a  class="bookmark-small pull-right">
+					<i class="fa fa-youtube"></i>
+          	</a></li>
+				</ul>
+			</div>
+		</div>
+		<span data-ng-show="mycommListShow"> There is no activity</span>
+	</div>
+</div>
+<!--Masonary Grid  -->
+
+<script type="text/javascript">
+/*var $container = $('#masoranyGrid');
+// initialize Masonry after all images have loaded  
+$container.imagesLoaded( function() {
+  $('#masoranyGrid').masonry({
+    columnWidth:1,
+    itemSelector: '.girdItem',
+    gutter: 13,
+     percentPosition: true
+  });
+});*/
+</script>

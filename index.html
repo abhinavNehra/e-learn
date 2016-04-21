@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" >
+</head>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<!-- <script src="index.js" charset="utf-8"></script> -->
+<body>
+<svg width="720" height="120">
+  <circle cx="40" cy="60" r="10"></circle>
+  <circle cx="80" cy="60" r="10"></circle>
+  <circle cx="120" cy="60" r="10"></circle>
+</svg>
+<script type="text/javascript">
+    console.log("=========",d3);
+
+	var circle = d3.selectAll("circle");
+	circle.style("fill", "steelblue");
+	circle.attr("r", 30);
+	circle.attr("cx", function() { return Math.random() * 720; });
+</script>
+</body>
+</html>

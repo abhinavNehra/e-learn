@@ -1,0 +1,50 @@
+<div  data-ng-show="commentProcess" style="text-align: center;">
+	<show-progress-bar></show-progress-bar>
+</div>	
+					
+<a data-ng-hide= "hideAllComments" data-ng-if="commentList.length > 5" data-ng-click="showAllComments()">View {{remainingComments}} more comments</a>
+	<li ng-repeat="comment in commentList  track by $index" class="post-form">
+	    	<div class="imgOuter">
+		    	<img class="comment-pic" data-ng-if="comment.user.local.avatar_url !== ''" alt="Mind MAX" src="{{comment.user.local.avatar_url}}">
+				<img class= "comment-pic" data-ng-if="comment.user.local.avatar_url == ''" alt="Mind MAX" src="assets/img/icons/video-lag.png">
+			</div>
+			<div class="commentsBlock clearfix" data-ng-if="activeCommentEdit[$index] != comment._id"  style='width:100%'>
+				<div class="commentName">{{comment.user.local.name}}</div><div class="commentDes">{{comment.comment}}</div>
+			</div>
+			
+			<div data-ng-if="UserId == comment.user._id" > 
+				<div data-ng-if="activeCommentEdit[$index] == comment._id" class="editComment">
+					<textarea  name="comment" class="form-control"  placeholder="Your Comment" ng-model="editCommentText[$index]"></textarea>
+					<div class="text-center clearfix" data-ng-class="commentErrorCls[$index]" ng-bind="commentErrorMsg[$index]"></div>
+					<div class="text-right btnBlock" data-ng-hide="isEditComment[$index]">
+						<a class="inputBtn" data-ng-click="editComment($index, comment)">Finished Editing</a>
+						<a class="inputBtn" data-ng-click="cancelPost($index)">cancel</a>
+					</div>	
+					<div  data-ng-show="isEditComment[$index]" style="text-align: center;">
+						<show-progress-bar></show-progress-bar>
+					</div>	
+				</div>	
+				<div class="editOptions" data-ng-if="activeCommentEdit[$index] != comment._id"><i data-ng-click="updateComment($index,comment)"  class="fa fa-pencil-square-o"></i>
+				<i confirm-click-comment data-ng-click="confirmClick() && deleteComment($index , comment._id)" class="fa fa-trash"></i>
+				</div>
+			</div>	
+	</li>
+
+<form name="commentForm" class="commentForm" ng-class= "{ 'fixed-comment': fixedComment }" id="commentBox" data-ng-submit="postComment(commentForm.$valid)" novalidate>
+<div  class="form-group" ng-class="{ 'has-error': commentFormSubmitted &&commentForm.comment.$invalid }">{{APP.currentUser.local.avatar_url}}
+	<div class="imgOuter">
+	<img class="comment-pic" data-ng-if="avatar !== ''" alt="Mind MAX" src="{{avatar}}">
+	<img class= "comment-pic" data-ng-if="avatar == ''" alt="Mind MAX" src="assets/img/icons/video-lag.png">
+</div>
+	<textarea name="comment" class="form-control"  placeholder="Your Comment" ng-model="txtcomment" style='width:100%;'></textarea>
+
+	<div class="help-block" ng-messages="commentForm.comment.$error" data-ng-show="commentFormSubmitted">
+		<p ng-message="required">Please write something</p>
+	</div>
+</div>
+<div class="text-right btnBlock">
+<input type="submit" name="login-submit" id="login-submit" tabindex="4"  value="Post">
+</div>
+</form>
+<span data-ng-show="errorComment" data-ng-bind="errCommentMessage"></span>
+	

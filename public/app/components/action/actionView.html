@@ -1,0 +1,92 @@
+<div class="container-fluid">
+	<!-- Main container -->
+	<div class="row">
+		<div class="main-wrapper">
+		<!-- side content starts -->
+			<div class="col-md-3 paddinig0 column-left">
+				<div class="side-content-wrapper">
+					<div class="panel-group Module-list text-uppercase">
+					   <div class="panel panel-default">
+						<div class="panel-heading" ng-class="{ 'active': activeAction }">      
+							<a ui-sref="action">MY ACTIONS</a>      
+						</div>
+					
+					  </div>
+					  <div class="panel panel-default">
+						<div class="panel-heading" ng-class="{ 'active': activeProfile }">      
+							<a ui-sref="profile">MY ACCOUNT</a>      
+						</div>
+					
+					  </div>
+					</div>					
+				</div>
+			</div>
+		<!-- side content ends -->
+		<!-- Right masonary content -->
+			<div class="col-md-9 paddinig0 column-right">
+				<div class="mainbox-right">
+				<!-- masonary navigation -->
+				
+				<!-- masonary navigation -->
+					<div class="masonary-title-box text-uppercase">
+					<div class="masonary-title">
+						<h2>MY ACTIONS</h2>
+						<p data-ng-show="showActionList">SEE YOUR ACTIONS LIST BELOW! TICK THEM OFF ONCE COMPLETED</p>
+						<p data-ng-hide="showActionList">There are no action saved</p>
+					</div>
+				</div>
+				    <div class="myact" data-ng-show="showActionList">    
+							<form  name="completedActionForm" onkeypress="return event.keyCode != 13;" data-ng-submit="completedSaveAction(completedActionForm.$valid)" novalidate><ul>
+								<li alt="" align="middle" data-ng-show="loaderShowA">
+							      <img src="assets/img/ajax-loader.gif"/>
+							  </li>
+							  	<li data-ng-repeat="list in getAction" class="clearfix checkbox">
+								<input type="checkbox" tabindex="3" ng-checked="selectSaveActionList.indexOf(list._id) != -1" data-ng-click="toggleCheckSaveAction(list._id)">
+								<input type="checkbox" ng-checked="true" data-ng-if="list.status == 2" ng-disabled=true>
+								
+								<p ng-class="{ 'text-success': list.status == 2 }" data-ng-bind="(list.module.name | capitalize) + ' , '+  (list.lesson.name | capitalize) + ' - ' + list.action.description"></p>
+								</li>
+							</ul>
+							 <div data-ng-show="actionLoader" class="col-sm-6 col-sm-offset-5">
+									<img  src="assets/img/ajax-loader.gif"/>
+								</div>
+								<div data-ng-show="resultAction" class="col-sm-12 mesg-common">
+									<span data-ng-bind="errMsg"></span/>
+							    </div>
+							 
+							 </form>
+						</div>
+         <!--  <div class="masonary-title-box text-uppercase my-completed-actions">
+						<div class="masonary-title">
+							<h2>MY COMPLETED ACTIONS</h2>
+						</div>
+					</div>
+				<div>
+							<div class="col-md-12">
+	                            <div class="row action-small-box">
+									<ul>
+								<li alt="" align="middle" data-ng-show="loaderShowA">
+							      <img src="assets/img/ajax-loader.gif"/>
+							  </li>
+							  	<li data-ng-repeat="list in getAction" class="clearfix checkbox" data-ng-if="list.status == 2">
+								<input type="checkbox" tabindex="3" ng-checked="selectSaveActionList.indexOf(list._id) != -1" data-ng-click="toggleCheckSaveAction(list._id)">
+								<input type="checkbox" ng-checked="true" data-ng-if="list.status == 2" ng-disabled=true>
+								
+								<p ng-class="{ 'text-success': list.status == 2 }" data-ng-bind="(list.module.name | capitalize) + ' , '+  (list.lesson.name | capitalize) + ' - ' + list.action.description"></p>
+								</li>
+							</ul>
+								</div>
+							</div>
+						</div>
+				
+				 -->	<!-- <register-Form data-ng-show="showRegForm"></register-Form> -->
+				
+			</div>
+		</div>
+	<!-- Right masonary content -->
+	</div>    	
+</div>
+<!-- Main container -->
+</div>
+
+<!-- container fluis ends -->

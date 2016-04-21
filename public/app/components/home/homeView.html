@@ -1,0 +1,44 @@
+<div class="container-fluid">
+	<!-- Main container -->
+	<div class="row">
+		<div class="main-wrapper">
+		<!-- side content starts -->
+			<div class="col-md-3 paddinig0 column-left">
+				<div class="side-content-wrapper">
+				  <modules-List></modules-List>	
+				</div>
+			</div>
+		<!-- side content ends -->
+		<!-- Right masonary content -->
+			<div class="col-md-9 paddinig0 column-right">
+				<div class="mainbox-right">
+				<!-- masonary navigation -->
+					<div id="fadein">
+						<div class="navigation">
+						<ul class="navigatin-box text-uppercase clear-fix">
+							<li data-ng-show="isLoggedIn">
+								<a data-ng-click="showMyspace()">My Space</a>
+							</li>
+							<li data-ng-show="isLoggedIn">
+								<a data-ng-click="showMyGroups()">My Groups</a>
+							</li>
+							<li>
+								<a data-ng-click="showMycommunity()">My Community Space</a>
+							</li>
+						</ul>
+					</div>
+				<!-- masonary navigation -->
+					<community data-ng-show ="showCommunity"></community>
+					<my-Space data-ng-show ="showSpace"></my-Space>
+					<my-Group  data-ng-show ="showGroup"></my-Group>
+					<!-- <register-Form data-ng-show="showRegForm"></register-Form> -->
+				</div>
+			</div>
+		</div>
+	<!-- Right masonary content -->
+	</div>    	
+</div>
+<!-- Main container -->
+</div>
+
+<!-- container fluis ends -->

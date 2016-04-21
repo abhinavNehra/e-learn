@@ -1,0 +1,30 @@
+<div class="row myspace-pop listLike">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+			
+<div id="friendModal" class="modal-header">
+	<h3 class="modal-title">All {{listLikeUser.length}} like</h3>
+	
+</div>
+<div class="modal-body tag-frnd-modal">
+	<ul ng-hide="showUserLoader">
+		<li data-ng-repeat="friend in listLikeUser">
+			<span class="tag-img">
+				<img title="" style="width:30px;height:30px" alt="No image available" ng-src='{{friend.local.avatar_url}}' data-ng-if="friend.local.avatar_url != null  && friend.local.avatar_url != ''">
+				<img title="" alt="No image available" src="assets/img/dummy32X32.jpg" data-ng-if="friend.local.avatar_url == null || friend.local.avatar_url == ''">
+			</span>
+			<span class="tag-frnd-name">
+				<a href ng-click="viewFriendProile(friend._id)" data-ng-bind="friend.local.name"></a><span class="frnd-details">
+				</span>
+			</span>
+			</li>
+	</ul> 
+	<div>
+		<img data-ng-show="showUserLoader" titile="" alt="" src="assets/img/ajax-loader.gif">
+	</div>
+</div>
+<a class="myspace-close" data-ng-click="closeModal2()"><img src="assets/img/imgpsh_fullsize.png"></a>
+
+</div>
+</div></div></div>

@@ -1,0 +1,191 @@
+<div class="container-fluid">
+	<!-- Main container -->
+	<div class="row">
+		<div class="main-wrapper">
+		<!-- side content starts -->
+		<div class="col-md-3 paddinig0 column-left">
+				<div class="side-content-wrapper">
+					<div class="panel-group Module-list text-uppercase">
+					   <div class="panel panel-default">
+						<div class="panel-heading" ng-class="{ 'active': activeAction }">      
+							<a ui-sref="action">MY ACTIONS</a>      
+						</div>
+					
+					  </div>
+					  <div class="panel panel-default">
+						<div class="panel-heading" ng-class="{ 'active': activeProfile }">      
+							<a ui-sref="profile">MY ACCOUNT</a>      
+						</div>
+					
+					  </div>
+					</div>					
+				</div>
+			</div>
+		<!-- side content ends -->
+				
+		<!-- Right masonary content -->
+			<div class="col-md-9 paddinig0 column-right">
+			<div class="mainbox-right">
+
+			<!-- masonary title -->
+				<div class="masonary-title-box text-uppercase">
+					<div class="masonary-title">
+						<h2>My Account</h2>
+						<p>View Your account settings now</p>
+					</div>
+				</div>
+				<div class="formBox">
+					<div class="labelRow">
+						<form name="imageForm" onkeypress="return event.keyCode != 13;" data-ng-submit="changeImage(imageForm.$valid)" novalidate>
+						<div class="labeName">My Avatar</div>
+					<div class="edit-upload-area">
+						<div class="inputArea">
+							<span class="imgOuter">
+								<img alt="" data-ng-hide="editUser.avatar_url" src="assets/img/SquareBox.jpeg" />
+								<img alt="" data-ng-show="editUser.avatar_url" ng-src="{{editUser.avatar_url}}" />
+							</span>
+						</div>
+						<div class="edit-upload-outer clearfix">
+							<label class="custom-upload edit-upload" data-ng-show="openeditImage">
+								<input type='file' file-model='fileModel' id="fileUploaded" onchange="angular.element(this).scope().upload(this)">CHOOSE FILE
+							</label>
+							<ul>
+								<li class="closepreview" data-ng-if="location">
+										<img class="pic-preview" ng-src="{{location}}">
+										<a data-ng-click="hidePreview()" class="myspace-close "><img src="assets/img/imgpsh_fullsize.png"></a> 
+									</li>
+								<li data-ng-if="noFile !=''" class="mesg-common">
+									<span data-ng-bind="noFile"></span>
+								</li>
+								<li>
+									<div   data-ng-show="uploadLoader" class="progress">
+										<div class="progress-bar" role="progressbar"
+												  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" ng-style="percentageStyle">
+										<span class="sr-only">Complete</span>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+							<div data-ng-hide="showEditProfile">
+								<div class="editOption" data-ng-hide="openeditImage">
+								<span data-ng-click="openEditForm(1)">Edit</span><span class="glyphicon glyphicon-pencil"></span>
+								</div>
+							</div>
+							<div class="editOption"  data-ng-show="openeditImage">
+							<input  type="submit" value="Save" class="btn-warning">
+							<span data-ng-click="cancelSave(1)">Cancel</span>
+						</div>
+					</form>
+					</div>
+					<div class="labelRow">
+						
+							<div class="labeName">My Name</div>
+							<div data-ng-hide="openeditName" class="inputArea" data-ng-bind="editUser.name"></div>
+							<div data-ng-hide="showEditProfile">
+								<div class="editOption" data-ng-hide="openeditName">
+								<span data-ng-click="openEditForm(2)">Edit</span><span class="glyphicon glyphicon-pencil"></span>
+								</div>
+							</div>
+							<form name="nameForm" onkeypress="return event.keyCode != 13;" data-ng-submit="changeName(nameForm.$valid)" novalidate data-ng-show="openeditName">
+								<div  class="form-group cal-dob" ng-class="{ 'has-error': nameSubmit && nameForm.uname.$invalid }">
+									<input  class="form-control" id="name" name="uname" type="text" data-ng-model="editUser.name" ng-minlength="5" ng-maxlength="50" required/>
+								</div>
+							<div class="help-block" ng-messages="nameForm.uname.$error" data-ng-show="nameSubmit">
+								<p data-ng-show="nameSubmit" ng-message="minlength">Name too short - minimum length is 5 characters</p>
+							    <p ng-message="maxlength">Name is too long.</p>
+							    <p ng-message="required">Name is required.</p>
+							</div>
+							<div class="editOption">
+							<input  type="submit" value="Save" class="btn-warning">
+							<span data-ng-click="cancelSave(2)">Cancel</span>
+							</form>		
+						</div>
+						
+					</div>
+					<div class="labelRow">
+						
+						<div class="labeName">My D.O.B</div>
+						<div data-ng-hide="openeditDob" class="inputArea" data-ng-bind="editUser.dob"></div>
+						<form data-ng-show="openeditDob" name="dobForm" onkeypress="return event.keyCode != 13;" data-ng-submit="changeDob(dobForm.$valid)" novalidate>
+							<div  class="form-group edit-dob" ng-class="{ 'has-error': dobSubmit && dobForm.dob.$invalid }">
+								<input  readonly type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" min-date="'1970-01-01'" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" name="dob" id="dob" placeholder="DOB" required/>
+								<span class="input-group-btn" data-ng-show="openeditDob">
+			                		<button  type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+			              		</span>
+			           			<div class="help-block" ng-messages="dobForm.dob.$error" data-ng-show="dobSubmit">
+									<p ng-message="required">DOB is required.</p>
+								</div>
+							</div>
+							<div class="editOption"  data-ng-show="openeditDob">
+								<input type="submit" value="Save" class="btn-warning">
+								<span data-ng-click="cancelSave(3)">Cancel</span>
+							</div>
+						</form>
+						<div data-ng-hide="showEditProfile"><div class="editOption" data-ng-hide="openeditDob">
+							<span data-ng-click="openEditForm(3)">Edit</span><span class="glyphicon glyphicon-pencil"></span>
+						</div>
+					</div>
+							
+					</div>
+					<div class="labelRow">
+						
+						<div class="labeName">My Email</div>
+						<div data-ng-hide="openeditEmail" class="inputArea" data-ng-bind="editUser.email"></div>
+						<div data-ng-hide="showEditProfile">
+						<div class="editOption" data-ng-hide="openeditEmail"><span data-ng-click="openEditForm(4)">Edit</span><span class="glyphicon glyphicon-pencil"></span></div></div>
+							<form name="editEmailForm" onkeypress="return event.keyCode != 13;" data-ng-submit="changeEmail(editEmailForm.$valid)" novalidate data-ng-show="openeditEmail">
+								<div  class="form-group" ng-class="{ 'has-error': emailSubmit && editEmailForm.email.$invalid }" >
+								<input  class="form-control" class="form-control" id="email" name="email" type="email" data-ng-model="editUser.email" ng-minlength="6" ng-maxlength="40" required/>
+							</div>
+							<div class="help-block" ng-messages="editEmailForm.email.$error" data-ng-show="emailSubmit">
+								<p ng-message="minlength"> Email too short - minimum length is 6 characters</p>
+								<p ng-message="maxlength">Email is too long</p>
+								<p ng-message="required">Email is required</p>
+								<p ng-message="email">This needs to be a valid email</p>
+							</div>
+							<div class="red" data-ng-show="showErrEmail">
+						    	<p data-ng-bind="errMsg"></p>
+						    </div>
+						<div class="editOption" data-ng-show="openeditEmail">
+							<input type="submit" value="Save" class="btn-warning">
+							<span data-ng-click="cancelSave(4)">Cancel</span>
+						</div>
+					</form>
+					</div>
+					<div class="labelRow">
+						
+						<div class="labeName">My Password</div>
+						<div class="inputArea" data-ng-hide="openeditPassword">*********</div>
+						<div data-ng-hide="showEditProfile"><div class="editOption" data-ng-hide="openeditPassword"><span data-ng-click="openEditForm(5)">Edit</span><span class="glyphicon glyphicon-pencil"></span></div></div>
+						<form name="editPassForm" onkeypress="return event.keyCode != 13;" data-ng-submit="changePassword(editPassForm.$valid)" novalidate data-ng-show="openeditPassword">
+							<div  class="form-group" ng-class="{ 'has-error': passwordSubmit && editPassForm.password.$invalid }">
+								<input   class="form-control" id="password" name="password" type="password" data-ng-model="editUser.password" ng-minlength="6" ng-maxlength="20" required/>
+							</div>
+							<div class="help-block" ng-messages="editPassForm.password.$error" data-ng-show="passwordSubmit">
+								<p ng-message="minlength"> Password too short - minimum length is 6 characters</p>
+								<p ng-message="maxlength">Password is too long</p>
+								<p ng-message="required">Password is required</p>
+							</div>
+							<div class="editOption" data-ng-show="openeditPassword">
+								<input type="submit" value="Save" class="btn-warning">
+								<span data-ng-click="cancelSave(5)">Cancel</span>
+							</div>
+						</form>
+					</div>
+						<div class="accDelete" data-ng-hide="showEditProfile">
+							<a confirm-click-delete data-ng-click="confirmClick() && deleteMyAccount()">Delete My Account</a>
+							<span data-ng-show ="delError" class="red" data-ng-bind="delError"></span>
+						</div>
+
+				</div>
+			</div>
+			</div>
+		<!-- Right masonary content -->
+	</div>    	
+</div>
+<!-- Main container -->
+</div>
+
+<!-- container fluis ends -->

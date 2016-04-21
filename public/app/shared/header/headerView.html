@@ -1,0 +1,108 @@
+<!--Header starts -->
+<div class="container-fluid header">
+	<div class="row header-wrapper text-uppercase">
+		<!-- logo Wrapper -->
+		<div class="logo-wrapper col-sm-3 col-xs-6">
+			<a ui-sref="home">Mind Max</a>
+		</div>
+		<!-- logo Wrapper -->
+
+		<!-- myAccount box -->
+		<div class="myAccount col-sm-3 col-sm-push-6 col-xs-6">
+			    <div class="dropdown pull-right">
+				    <a data-ng-hide="isLoggedIn" class="user-info dropdown-toggle" data-ng-click="showRegisterForm()">
+				       Sign Up
+				    <span class="user-img"></span>
+				    </a>
+				     <a  data-ng-show="isLoggedIn" class="user-info dropdown-toggle" data-toggle="dropdown">
+				      MY ACCOUNT
+				        <span class="user-img"></span>
+				    </a>
+				    <ul class="dropdown-menu">
+						<li>
+							<a ui-sref="action" ui-sref-opts="{reload: true}"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span>MY ACTIONS</a>
+						</li>
+						<li>
+							<a ui-sref="profile" ui-sref-opts="{reload: true}"><span aria-hidden="true" class="glyphicon glyphicon-user"></span>MY ACCOUNT</a>
+						</li>
+						<li class="last">
+							<a data-ng-click="logout()"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span>SIGN OUT</a>
+						</li>
+				    </ul>
+				</div>
+			</div>
+		<!-- myAccount box -->
+
+		<!-- Header text -->
+		<div class="header-txt col-sm-6 col-sm-pull-3 col-xs-12">
+			<h1>Learn</h1>
+		</div>
+		<!-- Header text -->
+	</div>	
+</div>
+	<!-- Records block starts -->
+<div class="">
+<div class="records-wrapper clearfix">
+	<ul class="records-list">
+		<li class="accounts-record">
+			<div><span></span></div><div data-ng-bind="statistics.totalAccounts"></div> <div> ACCOUNTS</div>
+		</li>
+		<li class="activity-record">
+			<div><span></span></div><div data-ng-bind="statistics.totalActivities"></div> <div> ACTIVTY ITEMS</div>
+		</li>
+		<li class="lessons-record">
+			<div><span></span></div><div data-ng-bind="statistics.totalCompletedLessons"></div> <div> COMPLETED LESSONS</div>
+		</li>
+		<li class="pull-right back-btn" data-ng-show="backToLessons">
+			<!-- <a ui-sref="home" style="margin-left: 494px;">BACK TO LESSONS</a> -->
+			<button ui-sref="home">BACK TO LESSONS</button>
+		</li>
+	</ul>
+ 
+	<div class="notification-alert" data-ng-show="isLoggedIn">
+		<div class="dropdown">
+			<a data-ng-click="getAllNotificationShow();seenAllMessage()" role="button" data-toggle="dropdown" >
+			    <i class="glyphicon glyphicon-bell" ></i>
+			    <span  class="badge badge-notify" data-ng-if="getTotalNotification > 0" data-ng-bind="getTotalNotification"></span>
+			</a>
+			<ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel" >
+			    <li data-ng-show="notificationloader">
+			    	<img  src="assets/img/ajax-loader.gif"/>
+			    </li>
+			    <li data-ng-hide="showTotalNotification" class="no-result">
+			    	<div>No notification found</div>
+			    </li>
+			  <div id="list-wrapper"> <div infinite-scroll-parent="true" infinite-scroll-distance="3" infinite-scroll="loadMoreNoti()"  infinite-scroll-container="'#list-wrapper'">
+			    <li data-ng-show="showTotalNotification" data-ng-show="getNotificationShow" data-ng-repeat=" notificationList in showAllNotificationList">
+					<div class="notifications-wrapper"  data-ng-click="viewLikeActivity($index, notificationList.activity._id,notificationList._id)" id="activity-noti-{{$index}}">
+						<div class="content" ng-class="(notificationList.status === 'seen') ? 'read-noti' : 'unread-noti'" data-ng-if="notificationList.from._id !== APP.currentUser._id">
+							<div class="notification-item" >
+								<div class="member-col-left clearfix">
+								 	<span>
+								 		<strong data-ng-bind="notificationList.from.local.name | capitalize"></strong>
+								 		<span> LIKE YOUR ACTION ITEM</span>
+								 	</span>
+								 	<p data-ng-bind="notificationList.activity.description.substr(0,20) + '....'"></p>
+								</div>
+								<div class="member-col-right" data-ng-if="notificationList.type == 'group'">
+									<a href="">
+										<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+									</a>
+								 	<a data-ng-click="removeNotification($index);">
+								 		<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+								 	</a>
+								</div>
+							</div>
+						</div>
+					</div>
+			 	</li>
+			</div>
+		</div>
+			</ul>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- Records block ends -->
+
+<!-- Header ends

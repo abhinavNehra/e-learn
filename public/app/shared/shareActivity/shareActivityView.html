@@ -1,0 +1,44 @@
+<div class="row register-popup heading-orange">
+			<div class="col-md-12">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-12 tab-reg">
+								<a href="#" class="active" id="login-form-link">POSTING TO MY SPACE</a>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							    <div class="col-lg-12">
+								    <h5>WOULD YOU LIKE TO POST TO:</h5>
+									<form  name="shareForm" onkeypress="return event.keyCode != 13;" data-ng-submit="postActivity(shareForm.$valid,mygroupcheck)" novalidate>
+										<div class="form-group text-left">
+											<input type="checkbox" tabindex="3" class="" disabled data-ng-model="mygroupcheck" ng-true-value="true"  ng-false-value="false" id="remember">
+											<label>MY GROUPS</label>
+										</div>
+										<!-- <div class="form-group text-left">
+											<input required type="checkbox" tabindex="3" class="" data-ng-model="mycommcheck"  id="remember" ng-true-value="true"  ng-false-value="false">
+											<label>MY COMMUNITY SPACE</label>
+										</div> -->
+
+									<div class="form-group">
+										<div class="row">
+											<div class="mesg-common clearfix" data-ng-show="successAct" ><span data-ng-bind="successActMsg"></span>
+											</div>
+											<div class="mesg-common clearfix" data-ng-show="activityError"><span>Some error occured</span>
+											</div>
+											<div class="col-sm-6 col-sm-offset-3">
+												<input data-ng-hide="shareLoader" type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="SUBMIT">
+												<img data-ng-show="shareLoader"align="middle" src="assets/img/ajax-loader.gif"/>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a data-ng-click="closePostActivityModal()" class="myspace-close"><img src="assets/img/imgpsh_fullsize.png"></a> 
+		</div>

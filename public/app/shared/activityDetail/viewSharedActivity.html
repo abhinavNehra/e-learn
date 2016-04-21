@@ -1,0 +1,85 @@
+<div class="row myspace-pop">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row space-small-box">
+
+					<div class="col-sm-6 back-left-panel" data-ng-hide="activityLoader">
+								
+							<center>
+								<img data-ng-if="viewDetailActivity.url !== ''" alt="Mind MAX" src="{{viewDetailActivity.url}}">
+							</center>	
+							<center>
+								<img data-ng-if="viewDetailActivity.url == ''" alt="Mind MAX" src="assets/img/icons/video-lag.png">
+							</center>
+					</div>
+					<div id="getHeight" class="col-sm-6" data-ng-hide="activityLoader">
+						<div class="profile-detail clearfix">
+								<div class="profile-detail-inner">
+									<div class="inputArea">
+										<span class="imgOuter">
+											<img data-ng-if="viewDetailActivity.user.local.avatar_url == ''" src="assets/img/icons/profile-pic.png">
+											<img data-ng-if="viewDetailActivity.user.local.avatar_url !== ''" src="{{viewDetailActivity.user.local.avatar_url}}">
+										</span></div>
+				                  <div class="labeName" data-ng-bind="viewDetailActivity.user.local.name"></div>
+								</div>
+								
+								<div class="edit-description">
+									<p data-ng-hide="editDescription" data-ng-bind="viewDetailActivity.description"></p>
+									<a data-ng-hide="editDescription"data-ng-click="editDetail()"><i class="fa fa-pencil-square-o"></i></a>
+								</div>	
+								<div class="show">
+								<form data-ng-show="editDescription" name="activityEditForm" data-ng-submit="saveDetail(activityForm.$valid ,viewDetailActivity._id)" novalidate>
+									<div class="form-group"  ng-class="{ 'has-error': activityFormEditSubmitted && activityEditForm.description.$invalid }">
+										<textarea minlength ="20" class="form-control" class="editpostbox" data-ng-model="editDescriptionValue" required id="description" name="description">
+									    </textarea>
+										<div class="help-block" ng-messages="activityEditForm.description.$error" data-ng-show="activityFormEditSubmitted">
+											<p ng-message="minlength">Description too short - minimum length is 20 characters</p>
+											<p ng-message="required">Description is required</p>
+										</div>
+						  			</div>
+									<ul  class="right-activity" data-ng-show="editDescription">
+										<li>
+											<input class="save-activity" type="submit" value="Save" />
+											<input data-ng-click="cancel(viewDetailActivity._id)" class="save-activity" type="button" value="Cancel" />
+											<!-- <a class="save-activity" data-ng-click="cancel(viewDetailActivity._id)">cancel</a> -->
+										</li>
+									</ul>
+								</form> 
+								<ul class="like-section clearfix">
+								   <li>
+								   		<a ng-hide="showLike"  data-ng-click="likeActivity(viewDetailActivity._id, viewDetailActivity.user._id, likedPeople)">Like</a>
+								   		<a data-ng-click="unlikeActivity(viewDetailActivity._id, viewDetailActivity.user._id,likedPeople)" ng-show="showLike">Unlike</a>
+								   	</li>
+								   <li><a href="">Comment </a></li>
+								</ul>
+
+								<ul class="pepleLiked"> 
+									<li data-ng-click ="openModal(viewDetailActivity._id)" data-ng-show="likedPeople"><i class="fa fa-thumbs-up"></i> {{likedPeople}} people</li>
+								</ul>
+								<div data-ng-click="loadMoreComments()">
+									<ul id="social-networking">
+									<li class="facebook"><a></a> </li>
+									<li class="twitter"><a></a> </li>
+									<li class="linkedin"><a></a> </li>
+									<li class="picasa"><a></a> </li>
+								</ul>
+							</div>
+								<div class="open-comment" ng-if="viewDetailActivity._id">
+								<comments-form activity-id="{{viewDetailActivity._id}}"></comments-form></div>
+								
+							</div>
+						</div>
+					</div>
+				<div class="row wait-load" data-ng-show="activityLoader">
+					<div class="col-md-12">
+						<center>
+							<img src="assets/img/ajax-loader.gif"/>
+						</center>
+					</div>
+				</div>	
+			<a class="myspace-close" data-ng-click="closeModal()"><img src="assets/img/imgpsh_fullsize.png"></a>
+		</div>
+	</div>		
+</div>
+</div>

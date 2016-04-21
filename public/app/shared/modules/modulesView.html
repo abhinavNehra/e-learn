@@ -1,0 +1,128 @@
+<div class="panel-group Module-list text-uppercase" id="accordion" >
+	<uib-accordion close-others="oneAtATime">
+		<uib-accordion-group  heading="{{modulelist.name}}" ng-repeat="modulelist in modules"  data-ng-click="expandLesson(modulelist._id)">
+			<ul id="Clbutton">
+				<li class="slideout" data-ng-show="showLesson" data-ng-repeat="lessons in lesson" data-ng-click="getlessonDetail($event,lessons._id, lessons.completed)"><span class="labeltext">lesson {{$index +1}}</span>
+				<p class="{text-success:lessons.completed}"><span ng-bind="lessons.name"></span><span><img data-ng-show="lessons.completed" src="assets/img/icons/completed.png" alt="Smiley face" height="24" width="24"></span></p>
+				
+			    </li>
+				<li data-ng-hide="showLesson"><span>No lesson found</span></li>
+				<li alt="" align="middle" data-ng-show="loader"><img src="assets/img/ajax-loader.gif"/></li>
+			</ul>
+		</uib-accordion-group>
+	</uib-accordion>
+</div>
+					<!-- Start code for activity pop up-->
+					<div class="container-fluid activity-popup" data-ng-show="showActivity" id="inActivity" ng-class="{ 'slideout-success': showActivity }">
+					 <div class="row">
+                 <div class="col-md-6 paddinig0">
+							<div class="values value-section">
+							   <h2><span>LESSON</span> - {{lessonDetail.name}}</h2>
+							    <p data-ng-bind="lessonDetail.basic_description"></p>
+							    <p data-ng-bind="lessonDetail.detailed_description" data-ng-show="lessonSeeMore"></p>
+								   <div class="see-more" data-ng-hide="lessonSeeMore"><a href="" ng-click='switchLessonDescription()'><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>SEE MORE!</a></div>
+								   <div class="see-more" data-ng-show="lessonSeeMore"><a href="" ng-click='switchLessonDescription()'><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>SEE LESS!</a></div>
+							</div>
+							<div class="values activity-section">
+								<form  name="activityForm"  data-ng-submit="createActivityItem(activityForm.$valid,lessonDetail._id ,lessonDetail.module )" novalidate>
+							   <h2>ACTIVITY</h2>
+							   <p data-ng-bind="lessonDetail.activity"></p>
+							   <div ng-class="{ 'has-error': activityFormSubmitted && activityForm.description.$invalid }">
+							   	<textarea minlength ="20" class="form-control" rows="3"
+							   data-ng-model="activity.description"  tabindex="1" class="form-control"  name="description" ng- required id="description"></textarea>
+								<div class="help-block" ng-messages="activityForm.description.$error" data-ng-show="activityFormSubmitted">
+									<p ng-message="minlength">Description too short - minimum length is 20 characters</p>
+									<p ng-message="required">Description is required</p>
+								</div>
+						   </div>
+							<ul class="form-group clearfix">
+								<!-- <li class="uploadbtn"><a href="">or upload</a></li> -->
+								<li>
+									<label class="custom-upload"><input type='file' file-model='activity.fileModel' id="fileUploaded" onchange="angular.element(this).scope().upload(this)">CHOOSE FILE
+									</label>
+								</li>
+								<li class="closepreview" data-ng-if="activity.location">
+									<img ng-src="{{activity.location}}" class="upload-image-preview">
+									<a data-ng-click="hidePreview()" class="myspace-close "><img src="assets/img/imgpreview.png"></a> 
+								</li>
+								<li data-ng-if="noFile !=''" class="mesg-common"><span data-ng-bind="noFile"></span></li>
+								<li>
+									<div data-ng-show="uploadLoader" class="progress">
+										<div class="progress-bar" role="progressbar"
+										  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" ng-style="percentageStyle">
+										<span class="sr-only">Complete</span>
+										</div>
+									</div>
+								</li>
+
+							  </ul>
+							   	<div class="button-section">
+								<span class="orange-button">
+									<!-- <button type='button' ng-click='upload()'>Upload</button> -->
+									<input accept="image/*" onchange="pickimg()" type="submit" value="SUBMIT ACTIVITY" class="orange btn btn-default"></span>
+									
+								</div>
+							</form>
+							</div>
+							<div class="values take-away-section">
+							    <h2>KEY TAKEAWAYS</h2>
+								<ul>
+								    <li data-ng-repeat="Keytakeaway in Keytakeaways"><span class="keylist">{{$index +1 +". "}}</span>{{Keytakeaway}}</li>
+								</ul>
+								<div class="button-section">
+								<span class="grey-button"><a class="btn btn-default grey" data-ng-click="showAction(lessonDetail._id)" role="button">CLICK FOR ACTIONS</a></span>
+								<span class="orange-button">
+									<a id="completeDft" class="btn btn-default orange" data-ng-click="finishLesson(lessonDetail._id ,lessonDetail.module )" role="button">I'VE FINISHED THIS LESSON
+									</a>
+								</span>
+								</div>
+							</div>
+							 <a data-ng-click="closeLessonDetail()" class="myspace-close"><img src="assets/img/imgpsh_fullsize.png"></a>
+					</div>
+				
+						<!---- End code for activity pop up -->
+						<!--action pop up section-->
+				 
+                 <div class="col-md-6 paddinig0 orange-tick" data-ng-show="actionlist">
+							<div class="values value-section">
+								<form id="actionForm" name="actionForm" onkeypress="return event.keyCode != 13;" data-ng-submit="saveAction(showActionForm.$valid, lessonDetail._id)" novalidate>
+							   <h2><span>Actions</h2>
+							   <h5 data-ng-show="showactionList">The ‘Actions’ for Lesson- {{lessonDetail.name}} are:</h5>     
+							    <ul>
+							      <li alt="" align="middle" data-ng-show="loader">
+							      	<img src="assets/img/ajax-loader.gif"/>
+							      </li>
+							      <li data-ng-repeat="action in dataAction" cl
+							      ass="clearfix checkbox">
+							      	<span>
+							      		<!-- <h5 data-ng-show="action.completed">check disabled</h5>
+							      		<h5 data-ng-hide="action.completed">check</h5> -->
+								      	<input   type="checkbox" ng-checked="true" data-ng-show="action.completed" ng-disabled=true>
+										<input  data-ng-hide="action.completed" type="checkbox" ng-click="toggleCheckAction(action._id, action.module._id)"/>
+									</span>
+							        <p ng-class="{ 'text-success': action.completed }" data-ng-bind="(action.module .name | capitalize) + ' , '+  (action.lesson.name  | capitalize)+ ' - ' + action.description">
+							        </p>
+							      </li>
+							      <p data-ng-show="noActionList">There are no actions in lesson- {{lessonDetail.name}} </p>
+							    </ul>
+							    <div data-ng-show="actionLoader" class="col-sm-6 col-sm-offset-5">
+									<img  src="assets/img/ajax-loader.gif"/>
+								</div>
+								<div data-ng-show="lenAction" class="col-sm-12 mesg-common">
+									<span>Please select any action</span/>
+							    </div>
+							    <div data-ng-show="successAction" class="col-sm-12 mesg-common">
+									<span>Action saved successfully</span/>
+							    </div>
+							    <div class="button-section" data-ng-show="showactionList">
+									<span class="orange-button"><input type="submit" value="SAVE" class="btn btn-default light-orange"></span></span>
+								</div>
+								<form>
+							</div>
+							 <a data-ng-click="closeActionDetail()" class="myspace-close"><img src="assets/img/imgpsh_fullsize.png"></a>
+			</div>
+        
+         </div>
+
+       </div>
+			<!--action pop up section end-->
